@@ -7,7 +7,7 @@ const createUploader = require("../middleware/uploadMiddleware");
 const profileUpload = createUploader("profiles", "profile");
 const coverUpload = createUploader("covers", "cover");
 
-const { getProfile, uploadProfilePicture, uploadCoverPicture, updateProfile, toggleFollow, getUserProfile } = require("../controllers/userController");
+const { getProfile, uploadProfilePicture, uploadCoverPicture, updateProfile, toggleFollow, getUserProfile, searchUsers } = require("../controllers/userController");
 
 router.get("/me", protect, getProfile);
 router.put(
@@ -26,6 +26,9 @@ router.put("/update-profile", protect, updateProfile);
 
 router.put("/follow/:id", protect, toggleFollow);
 
+router.get("/search", protect, searchUsers);
+
 router.get("/:id", protect, getUserProfile);
+
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const Post = require("../models/Post");
+const Notification = require("../models/Notification");
 const sanitizeUser = require("../utils/sanitizeUser");
 
 
@@ -232,6 +233,13 @@ const toggleFollow = async (req, res) => {
 
         await targetUser.save();
 
+        // Create notification
+        await Notification.create({
+            sender: req.user.id,
+            receiver: targetUser._id,
+            type: "follow"
+        });
+
         res.status(200).json({
             success: true,
             following: true,
@@ -298,11 +306,73 @@ const getUserProfile = async (req, res) => {
     }
 };
 
+const searchUsers = async (req, res) => {
+    try {
+
+        const query = req.query.query;
+
+        if (!query) {
+            return res.status(400).json({
+                success: false,
+                message: "Search query is required."
+            });
+        }
+
+        const users = await User.find({
+
+            $or: [
+
+                {
+                    fullName: {
+                        $regex: query,
+                        $options: "i"
+                    }
+                },
+
+                {
+                    username: {
+                        $regex: query,
+                        $options: "i"
+                    }
+                }
+
+            ]
+
+        }).select(
+            "fullName username profilePic bio"
+        );
+
+        res.status(200).json({
+
+            success: true,
+
+            count: users.length,
+
+            users
+
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+
+            success: false,
+
+            message: "Server Error"
+
+        });
+
+    }
+};
+
 module.exports = {
     getProfile,
     uploadProfilePicture,
     uploadCoverPicture,
     updateProfile,
     toggleFollow,
-    getUserProfile
+    getUserProfile,
+    searchUsers
 };

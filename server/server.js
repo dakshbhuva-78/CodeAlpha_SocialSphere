@@ -8,6 +8,7 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const postRoutes = require("./routes/postRoutes");
+const notificationRoutes = require("./routes/notificationRoutes");
 
 const path = require("path");
 
@@ -25,6 +26,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
+app.use("/api/notification", notificationRoutes);
 
 app.get("/", (req, res) => {
     res.send("🚀 SocialSphere Backend Running Successfully");
