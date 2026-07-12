@@ -276,6 +276,16 @@ const getUserProfile = async (req, res) => {
             author: profileUser._id
         });
 
+        const posts = await Post.find({
+            author: profileUser._id
+        });
+
+        // Total likes received on all posts
+        const likesCount = posts.reduce(
+            (total, post) => total + post.likes.length,
+            0
+        );
+
         const isFollowing = loggedInUser.following.includes(profileUser._id);
 
         res.status(200).json({
@@ -290,6 +300,7 @@ const getUserProfile = async (req, res) => {
                 followersCount: profileUser.followers.length,
                 followingCount: profileUser.following.length,
                 postsCount,
+                likesCount,
                 isFollowing
             }
         });
@@ -367,6 +378,108 @@ const searchUsers = async (req, res) => {
     }
 };
 
+const getFollowers = async (req, res) => {
+    try {
+
+        const user = await User.findById(req.params.id)
+            .populate(
+                "followers",
+                "fullName username profilePic"
+            );
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found."
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            users: user.followers
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            success: false,
+            message: "Server Error"
+        });
+
+    }
+};
+
+const getFollowing = async (req, res) => {
+    try {
+
+        const user = await User.findById(req.params.id)
+            .populate(
+                "following",
+                "fullName username profilePic"
+            );
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found."
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            users: user.following
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            success: false,
+            message: "Server Error"
+        });
+
+    }
+};
+
+const getSuggestedUsers = async (req, res) => {
+    try {
+
+        const currentUser = await User.findById(req.user.id);
+
+        const excludeUsers = [
+            currentUser._id,
+            ...currentUser.following
+        ];
+
+        const users = await User.find({
+            _id: {
+                $nin: excludeUsers
+            }
+        })
+            .select("fullName username profilePic")
+            .limit(5);
+
+        res.status(200).json({
+            success: true,
+            users
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            success: false,
+            message: "Server Error"
+        });
+
+    }
+};
+
+
 module.exports = {
     getProfile,
     uploadProfilePicture,
@@ -374,5 +487,8 @@ module.exports = {
     updateProfile,
     toggleFollow,
     getUserProfile,
-    searchUsers
+    searchUsers,
+    getFollowers,
+    getFollowing,
+    getSuggestedUsers
 };

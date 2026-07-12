@@ -51,37 +51,79 @@ const createPost = async (req, res) => {
 
 const getFeed = async (req, res) => {
     try {
-        const posts = await Post.find()
-            .populate("author", "fullName username profilePic")
-            .sort({ createdAt: -1 });
+
+        const user = await User.findById(req.user.id);
+
+        let posts = [];
+
+        // User follows someone
+        if (user.following.length > 0) {
+
+            posts = await Post.find({
+                author: {
+                    $in: [...user.following, user._id]
+                }
+            })
+                .populate("author", "fullName username profilePic")
+                .sort({ createdAt: -1 });
+
+        }
+
+        // User follows nobody -> show all posts
+        else {
+
+            posts = await Post.find()
+                .populate("author", "fullName username profilePic")
+                .sort({ createdAt: -1 });
+
+        }
+
+        const postsWithSaveStatus = posts.map(post => ({
+            ...post.toObject(),
+            isSaved: user.savedPosts.some(
+                id => id.toString() === post._id.toString()
+            )
+        }));
 
         res.status(200).json({
             success: true,
-            count: posts.length,
-            posts,
+            count: postsWithSaveStatus.length,
+            posts: postsWithSaveStatus
         });
+
     } catch (error) {
+
         console.error(error);
 
         res.status(500).json({
             success: false,
-            message: "Server Error",
+            message: "Server Error"
         });
+
     }
 };
 
 const getUserPosts = async (req, res) => {
     try {
+        const user = await User.findById(req.user.id);
+
         const posts = await Post.find({
-            author: req.params.userId,
+            author: req.params.userId
         })
             .populate("author", "fullName username profilePic")
             .sort({ createdAt: -1 });
 
+        const postsWithSaveStatus = posts.map(post => ({
+            ...post.toObject(),
+            isSaved: user.savedPosts.some(
+                id => id.toString() === post._id.toString()
+            )
+        }));
+
         res.status(200).json({
             success: true,
             count: posts.length,
-            posts,
+            posts: postsWithSaveStatus
         });
     } catch (error) {
         console.error(error);
@@ -121,9 +163,19 @@ const getSinglePost = async (req, res) => {
             });
         }
 
+        // NEW
+        const user = await User.findById(req.user.id);
+
+        const isSaved = user.savedPosts.some(
+            id => id.toString() === post._id.toString()
+        );
+
         res.status(200).json({
             success: true,
-            post
+            post: {
+                ...post.toObject(),
+                isSaved
+            }
         });
 
     } catch (error) {
@@ -326,8 +378,24 @@ const deleteComment = async (req, res) => {
             });
         }
 
-        // Only comment owner can delete
-        if (comment.user.toString() !== req.user.id) {
+        // Get the post
+        const post = await Post.findById(comment.post);
+
+        if (!post) {
+            return res.status(404).json({
+                success: false,
+                message: "Post not found.",
+            });
+        }
+
+        // Check permissions
+        const isCommentOwner =
+            comment.user.toString() === req.user.id;
+
+        const isPostOwner =
+            post.author.toString() === req.user.id;
+
+        if (!isCommentOwner && !isPostOwner) {
             return res.status(403).json({
                 success: false,
                 message: "You are not allowed to delete this comment.",
@@ -464,7 +532,7 @@ const getSavedPosts = async (req, res) => {
         res.status(200).json({
             success: true,
             count: user.savedPosts.length,
-            posts: user.savedPosts
+            posts: [...user.savedPosts].reverse()
         });
 
     } catch (error) {
