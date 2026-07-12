@@ -15,6 +15,9 @@ import { toast } from "react-hot-toast";
 
 import { AuthContext } from "../../context/AuthContext";
 
+import { BASE_URL } from "../../config/config";
+
+
 const CreatePostModal = ({ close }) => {
 
     const fileInputRef = useRef(null);
@@ -24,8 +27,6 @@ const CreatePostModal = ({ close }) => {
     const [currentImage, setCurrentImage] = useState(0);
     const [caption, setCaption] = useState("");
     const [loading, setLoading] = useState(false);
-
-    import { BASE_URL } from "../../config/config";
 
     const { user: currentUser } = useContext(AuthContext);
 

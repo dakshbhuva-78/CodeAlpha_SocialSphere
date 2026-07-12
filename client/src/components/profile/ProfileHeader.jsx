@@ -8,12 +8,11 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import EditProfileModal from "./EditProfileModal";
 import { toggleFollow } from "../../services/userService";
+import { BASE_URL } from "../../config/config";
 
 const ProfileHeader = ({ user, setUser }) => {
 
     const [openEdit, setOpenEdit] = useState(false);
-
-    import { BASE_URL } from "../../config/config";
 
     const currentUser = JSON.parse(localStorage.getItem("user"));
 
@@ -122,8 +121,8 @@ const ProfileHeader = ({ user, setUser }) => {
                             <button
                                 onClick={handleFollow}
                                 className={`px-6 py-2.5 rounded-xl font-semibold transition ${isFollowing
-                                        ? "bg-gray-600 hover:bg-gray-700 text-white"
-                                        : "bg-blue-600 hover:bg-blue-700 text-white"
+                                    ? "bg-gray-600 hover:bg-gray-700 text-white"
+                                    : "bg-blue-600 hover:bg-blue-700 text-white"
                                     }`}
                             >
                                 {isFollowing ? "Following" : "Follow"}
