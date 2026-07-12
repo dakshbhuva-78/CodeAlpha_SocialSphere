@@ -74,15 +74,6 @@ const AppRoutes = () => {
             />
 
             <Route
-                path="/create"
-                element={
-                    <ProtectedRoute>
-                        <CreatePost />
-                    </ProtectedRoute>
-                }
-            />
-
-            <Route
                 path="/post/:id"
                 element={
                     <ProtectedRoute>
