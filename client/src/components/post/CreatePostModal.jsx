@@ -25,7 +25,7 @@ const CreatePostModal = ({ close }) => {
     const [caption, setCaption] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const BASE_URL = "http://localhost:5000";
+    import { BASE_URL } from "../../config/config";
 
     const { user: currentUser } = useContext(AuthContext);
 

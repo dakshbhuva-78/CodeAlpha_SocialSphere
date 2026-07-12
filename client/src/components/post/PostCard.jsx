@@ -7,7 +7,7 @@ import { AuthContext } from "../../context/AuthContext";
 import DeletePostModal from "./DeletePostModal";
 import EditPostModal from "./EditPostModal";
 
-const BASE_URL = "http://localhost:5000";
+import { BASE_URL } from "../../config/config";
 
 
 const PostCard = ({ post, setPosts = () => { } }) => {

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const BASE_URL = "http://localhost:5000";
+import { BASE_URL } from "../../config/config";
 
 const SearchUserCard = ({ user }) => {
 

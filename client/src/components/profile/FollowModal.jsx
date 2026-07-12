@@ -2,7 +2,7 @@ import { X, Search } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
-const BASE_URL = "http://localhost:5000";
+import { BASE_URL } from "../../config/config";
 
 const FollowModal = ({
     title,

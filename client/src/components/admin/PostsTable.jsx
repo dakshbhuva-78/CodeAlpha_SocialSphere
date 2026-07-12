@@ -4,7 +4,7 @@ import { Trash2 } from "lucide-react";
 import { deletePost } from "../../services/adminService";
 import DeletePostModal from "./DeletePostModal";
 
-const BASE_URL = "http://localhost:5000";
+import { BASE_URL } from "../../config/config";
 
 const PostsTable = ({ posts, setPosts }) => {
 

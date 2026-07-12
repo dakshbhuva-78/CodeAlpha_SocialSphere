@@ -3,7 +3,7 @@ import { Heart, MessageCircle } from "lucide-react";
 import { getUserPosts } from "../../services/postService";
 import { useNavigate } from "react-router-dom";
 
-const BASE_URL = "http://localhost:5000";
+import { BASE_URL } from "../../config/config";
 
 const ProfilePosts = ({ user }) => {
 

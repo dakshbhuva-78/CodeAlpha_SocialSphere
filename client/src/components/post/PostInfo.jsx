@@ -17,7 +17,7 @@ import {
 import { AuthContext } from "../../context/AuthContext";
 import timeAgo from "../../utils/timeAgo";
 
-const BASE_URL = "http://localhost:5000";
+import { BASE_URL } from "../../config/config";
 
 const PostInfo = ({ post }) => {
 

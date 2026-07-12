@@ -13,7 +13,7 @@ const ProfileHeader = ({ user, setUser }) => {
 
     const [openEdit, setOpenEdit] = useState(false);
 
-    const BASE_URL = "http://localhost:5000";
+    import { BASE_URL } from "../../config/config";
 
     const currentUser = JSON.parse(localStorage.getItem("user"));
 

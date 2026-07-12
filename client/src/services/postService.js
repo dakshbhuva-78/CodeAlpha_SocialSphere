@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: "http://localhost:5000/api",
+    baseURL: import.meta.env.VITE_API_URL,
 });
 
 API.interceptors.request.use((config) => {
@@ -63,4 +63,3 @@ export const getSinglePost = (postId) =>
 // Get Saved Posts
 export const getSavedPosts = () =>
     API.get("/post/saved");
-

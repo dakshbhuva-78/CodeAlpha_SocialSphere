@@ -2,7 +2,7 @@ import { X, Camera } from "lucide-react";
 import { useRef, useState } from "react";
 import { updateProfile, uploadProfilePicture, uploadCoverPicture } from "../../services/userService";
 
-const BASE_URL = "http://localhost:5000";
+import { BASE_URL } from "../../config/config";
 
 const EditProfileModal = ({ user, close, setUser }) => {
 

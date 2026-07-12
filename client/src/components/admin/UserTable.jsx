@@ -4,7 +4,7 @@ import { Trash2 } from "lucide-react";
 import { deleteUser } from "../../services/adminService";
 import DeleteUserModal from "./DeleteUserModal";
 
-const BASE_URL = "http://localhost:5000";
+import { BASE_URL } from "../../config/config";
 
 const UserTable = ({ users, setUsers }) => {
 

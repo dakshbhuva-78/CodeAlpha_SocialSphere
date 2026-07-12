@@ -5,7 +5,7 @@ import { Bookmark } from "lucide-react";
 import MainLayout from "../../layouts/MainLayout";
 import { getSavedPosts } from "../../services/postService";
 
-const BASE_URL = "http://localhost:5000";
+import { BASE_URL } from "../../config/config";
 
 const SavedPosts = () => {
 

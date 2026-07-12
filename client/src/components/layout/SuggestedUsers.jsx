@@ -6,7 +6,7 @@ import {
     toggleFollow,
 } from "../../services/userService";
 
-const BASE_URL = "http://localhost:5000";
+import { BASE_URL } from "../../config/config";
 
 const SuggestedUsers = () => {
 
