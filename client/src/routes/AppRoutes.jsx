@@ -8,7 +8,6 @@ import Profile from "../pages/user/Profile";
 import Search from "../pages/user/Search";
 import SavedPosts from "../pages/user/SavedPosts";
 import Notification from "../pages/notification/Notification";
-import CreatePost from "../pages/user/CreatePost";
 import PostDetails from "../pages/user/PostDetails";
 
 import AdminLogin from "../pages/admin/AdminLogin";
