@@ -12,9 +12,10 @@ import { getImageUrl } from "../../utils/getImageUrl";
 const PostCard = ({ post, setPosts = () => { } }) => {
 
     const { user: currentUser } = useContext(AuthContext);
-    const isOwner = currentUser._id === post.author._id;
 
     if (!currentUser) return null;
+
+    const isOwner = currentUser._id === post.author._id;
 
     const [likes, setLikes] = useState(post.likes);
 
@@ -251,25 +252,16 @@ const PostCard = ({ post, setPosts = () => { } }) => {
                     className="w-full max-h-[650px] object-cover"
                 />
 
-                {post.images.length > 1 && (
+                {currentImage > 0 && (
+                    <button onClick={prevImage}>
+                        <ChevronLeft size={22} />
+                    </button>
+                )}
 
-                    <>
-                        <button
-                            onClick={prevImage}
-                            className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 text-white rounded-full p-2"
-                        >
-                            <ChevronLeft size={22} />
-                        </button>
-
-                        <button
-                            onClick={nextImage}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 text-white rounded-full p-2"
-                        >
-                            <ChevronRight size={22} />
-                        </button>
-
-                    </>
-
+                {currentImage < post.images.length - 1 && (
+                    <button onClick={nextImage}>
+                        <ChevronRight size={22} />
+                    </button>
                 )}
 
             </div>
