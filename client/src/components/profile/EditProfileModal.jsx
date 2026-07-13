@@ -23,7 +23,7 @@ const EditProfileModal = ({ user, close, setUser }) => {
     const [coverPreview, setCoverPreview] = useState(
         getImageUrl(user.coverPic, "/uploads/covers/default-cover.jpg")
     );
-    
+
     const [uploadingCover, setUploadingCover] = useState(false);
 
 
@@ -295,7 +295,13 @@ const EditProfileModal = ({ user, close, setUser }) => {
                                 >
                                     <Camera size={18} />
                                 </button>
-
+                                <input
+                                    hidden
+                                    ref={fileInputRef}
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleProfilePicture}
+                                />
                             </div>
 
                         </div>
