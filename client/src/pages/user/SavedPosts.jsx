@@ -5,7 +5,7 @@ import { Bookmark } from "lucide-react";
 import MainLayout from "../../layouts/MainLayout";
 import { getSavedPosts } from "../../services/postService";
 
-import { BASE_URL } from "../../config/config";
+import { getImageUrl } from "../../utils/getImageUrl";
 
 const SavedPosts = () => {
 
@@ -123,7 +123,7 @@ const SavedPosts = () => {
                                         >
 
                                             <img
-                                                src={BASE_URL + post.images[0]}
+                                                src={getImageUrl(post.images[0])}
                                                 className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
                                             />
 
