@@ -7,8 +7,7 @@ import { AuthContext } from "../../context/AuthContext";
 import DeletePostModal from "./DeletePostModal";
 import EditPostModal from "./EditPostModal";
 
-import { BASE_URL } from "../../config/config";
-
+import { getImageUrl } from "../../utils/getImageUrl";
 
 const PostCard = ({ post, setPosts = () => { } }) => {
 
@@ -162,11 +161,7 @@ const PostCard = ({ post, setPosts = () => { } }) => {
             <div className="flex justify-between items-start p-4">
                 <div className="flex gap-3">
                     <img
-                        src={
-                            post.author.profilePic
-                                ? BASE_URL + post.author.profilePic
-                                : BASE_URL + "/uploads/profiles/default-avatar.png"
-                        }
+                        src={getImageUrl(post.author.profilePic)}
                         alt=""
                         className="w-12 h-12 rounded-full object-cover"
                     />
@@ -251,7 +246,7 @@ const PostCard = ({ post, setPosts = () => { } }) => {
             <div className="relative">
 
                 <img
-                    src={BASE_URL + post.images[currentImage]}
+                    src={getImageUrl(post.images[currentImage])}
                     alt=""
                     className="w-full max-h-[650px] object-cover"
                 />

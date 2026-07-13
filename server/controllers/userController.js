@@ -50,7 +50,7 @@ const uploadProfilePicture = async (req, res) => {
             });
         }
 
-        const imagePath = `/uploads/profiles/${req.file.filename}`;
+        const imagePath = req.file.path;
 
         const user = await User.findByIdAndUpdate(
             req.user.id,
@@ -90,8 +90,8 @@ const uploadCoverPicture = async (req, res) => {
             });
         }
 
-        const imagePath = `/uploads/covers/${req.file.filename}`;
-
+        const imagePath = req.file.path;
+        
         const user = await User.findByIdAndUpdate(
             req.user.id,
             {

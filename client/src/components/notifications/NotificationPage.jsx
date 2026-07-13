@@ -17,7 +17,7 @@ import {
 
 import timeAgo from "../../utils/timeAgo";
 
-import { BASE_URL } from "../../config/config";
+import { getImageUrl } from "../../utils/getImageUrl";
 
 const NotificationPage = () => {
 
@@ -139,11 +139,7 @@ const NotificationPage = () => {
                                             <div className="flex gap-4 items-center">
 
                                                 <img
-                                                    src={
-                                                        notification.sender.profilePic
-                                                        ? BASE_URL + notification.sender.profilePic
-                                                        : BASE_URL + "/uploads/profiles/default-avatar.png"
-                                                    }
+                                                    src={getImageUrl(notification.sender.profilePic)}
                                                     className="w-14 h-14 rounded-full object-cover"
                                                     alt=""
                                                 />

@@ -2,8 +2,6 @@ const Post = require("../models/Post");
 const User = require("../models/User");
 const Notification = require("../models/Notification");
 const Comment = require("../models/Comment");
-const path = require("path");
-const fs = require("fs");
 
 const createPost = async (req, res) => {
     try {
@@ -18,9 +16,7 @@ const createPost = async (req, res) => {
         }
 
         // Store Image Paths
-        const imagePaths = req.files.map((file) => {
-            return `/uploads/posts/${file.filename}`;
-        });
+        const imagePaths = req.files.map(file => file.path);
 
         // Create Post
         const post = await Post.create({
@@ -207,15 +203,6 @@ const deletePost = async (req, res) => {
                 success: false,
                 message: "Unauthorized.",
             });
-        }
-
-        // Delete all uploaded images
-        for (const image of post.images) {
-            const imagePath = path.join(__dirname, "..", image.replace("/", ""));
-
-            if (fs.existsSync(imagePath)) {
-                fs.unlinkSync(imagePath);
-            }
         }
 
         // Delete all comments of this post

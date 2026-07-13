@@ -2,7 +2,8 @@ import { X, Camera } from "lucide-react";
 import { useRef, useState } from "react";
 import { updateProfile, uploadProfilePicture, uploadCoverPicture } from "../../services/userService";
 
-import { BASE_URL } from "../../config/config";
+import { getImageUrl } from "../../utils/getImageUrl";
+
 
 const EditProfileModal = ({ user, close, setUser }) => {
 
@@ -13,19 +14,16 @@ const EditProfileModal = ({ user, close, setUser }) => {
 
     const fileInputRef = useRef(null);
     const [preview, setPreview] = useState(
-        user.profilePic
-            ? BASE_URL + user.profilePic
-            : BASE_URL + "/uploads/profiles/default-avatar.png"
+        getImageUrl(user.profilePic)
     );
     const [uploadingImage, setUploadingImage] = useState(false);
 
 
     const coverInputRef = useRef(null);
     const [coverPreview, setCoverPreview] = useState(
-        user.coverPic
-            ? BASE_URL + user.coverPic
-            : BASE_URL + "/uploads/covers/default-cover.jpg"
+        getImageUrl(user.coverPic, "/uploads/covers/default-cover.jpg")
     );
+    
     const [uploadingCover, setUploadingCover] = useState(false);
 
 

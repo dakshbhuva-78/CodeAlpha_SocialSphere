@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
-import { BASE_URL } from "../../config/config";
+import { getImageUrl } from "../../utils/getImageUrl";
 
 const PostImage = ({ images }) => {
 
@@ -27,7 +27,7 @@ const PostImage = ({ images }) => {
 
         <div className="relative bg-black flex items-center justify-center h-full">
             <img
-                src={BASE_URL + images[current]}
+                src={getImageUrl(images[current])}
                 className="max-w-full max-h-full object-cover"
                 alt=""
             />

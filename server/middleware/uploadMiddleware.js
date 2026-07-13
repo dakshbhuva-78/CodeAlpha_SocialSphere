@@ -1,59 +1,51 @@
 const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("../config/cloudinary");
 
 const createUploader = (folderName, filePrefix) => {
 
-    const storage = multer.diskStorage({
+    const storage = new CloudinaryStorage({
 
-        destination: (req, file, cb) => {
+        cloudinary,
 
-            const uploadPath = path.join(
-                __dirname,
-                "..",
-                "uploads",
-                folderName
-            );
+        params: {
 
-            // Create folder automatically if missing
-            fs.mkdirSync(uploadPath, {
-                recursive: true
-            });
+            folder: `SocialSphere/${folderName}`,
 
-            cb(null, uploadPath);
+            allowed_formats: ["jpg", "jpeg", "png", "webp"],
 
-        },
-
-        filename: (req, file, cb) => {
-
-            const uniqueName =
-                `${filePrefix}-${Date.now()}${path.extname(file.originalname)}`;
-
-            cb(null, uniqueName);
+            public_id: (req, file) =>
+                `${filePrefix}-${Date.now()}`
 
         }
 
     });
 
-    const fileFilter = (req, file, cb) => {
+    return multer({
 
-        const allowedTypes = /jpg|jpeg|png|webp/;
+        storage,
 
-        const isValid =
-            allowedTypes.test(path.extname(file.originalname).toLowerCase()) &&
-            allowedTypes.test(file.mimetype);
+        fileFilter: (req, file, cb) => {
 
-        if (isValid) {
-            cb(null, true);
-        } else {
-            cb(new Error("Only image files are allowed."));
+            const allowed = [
+                "image/jpeg",
+                "image/png",
+                "image/jpg",
+                "image/webp"
+            ];
+
+            if (allowed.includes(file.mimetype)) {
+
+                cb(null, true);
+
+            } else {
+
+                cb(new Error("Only image files are allowed"));
+
+            }
+
         }
 
-    };
-
-    return multer({
-        storage,
-        fileFilter
     });
 
 };

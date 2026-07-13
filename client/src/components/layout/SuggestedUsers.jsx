@@ -6,7 +6,7 @@ import {
     toggleFollow,
 } from "../../services/userService";
 
-import { BASE_URL } from "../../config/config";
+import { getImageUrl } from "../../utils/getImageUrl";
 
 const SuggestedUsers = () => {
 
@@ -119,11 +119,7 @@ const SuggestedUsers = () => {
                                         >
 
                                             <img
-                                                src={
-                                                    user.profilePic
-                                                        ? BASE_URL + user.profilePic
-                                                        : BASE_URL + "/uploads/profiles/default-avatar.png"
-                                                }
+                                                src={getImageUrl(user.profilePic)}
                                                 alt=""
                                                 className="w-12 h-12 rounded-full object-cover border"
                                             />

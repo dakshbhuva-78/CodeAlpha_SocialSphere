@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 import { BASE_URL } from "../../config/config";
+import { getImageUrl } from "../../utils/getImageUrl";
 
 const SearchUserCard = ({ user }) => {
 
@@ -12,11 +13,7 @@ const SearchUserCard = ({ user }) => {
         >
 
             <img
-                src={
-                    user.profilePic
-                        ? BASE_URL + user.profilePic
-                        : "/default-avatar.png"
-                }
+                src={getImageUrl(user.profilePic)}
                 className="w-16 h-16 rounded-full object-cover"
             />
 

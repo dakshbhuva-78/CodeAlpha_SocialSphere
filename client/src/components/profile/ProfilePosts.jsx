@@ -3,7 +3,7 @@ import { Heart, MessageCircle } from "lucide-react";
 import { getUserPosts } from "../../services/postService";
 import { useNavigate } from "react-router-dom";
 
-import { BASE_URL } from "../../config/config";
+import { getImageUrl } from "../../utils/getImageUrl";
 
 const ProfilePosts = ({ user }) => {
 
@@ -94,7 +94,7 @@ const ProfilePosts = ({ user }) => {
                                 >
 
                                     <img
-                                        src={BASE_URL + post.images[0]}
+                                        src={getImageUrl(post.images[0])}
                                         alt=""
                                         className="w-full h-full object-cover transition duration-300 group-hover:scale-110"
                                     />

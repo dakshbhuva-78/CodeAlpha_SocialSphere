@@ -4,7 +4,7 @@ import { Trash2 } from "lucide-react";
 import { deletePost } from "../../services/adminService";
 import DeletePostModal from "./DeletePostModal";
 
-import { BASE_URL } from "../../config/config";
+import { getImageUrl } from "../../utils/getImageUrl";
 
 const PostsTable = ({ posts, setPosts }) => {
 
@@ -72,7 +72,7 @@ const PostsTable = ({ posts, setPosts }) => {
                                     <td className="p-3">
 
                                         <img
-                                            src={BASE_URL + post.images[0]}
+                                            src={getImageUrl(post.images[0])}
                                             className="w-20 h-20 rounded-lg object-cover"
                                             alt=""
                                         />

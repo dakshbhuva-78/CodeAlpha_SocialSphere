@@ -16,8 +16,7 @@ import {
 
 import { AuthContext } from "../../context/AuthContext";
 import timeAgo from "../../utils/timeAgo";
-
-import { BASE_URL } from "../../config/config";
+import { getImageUrl } from "../../utils/getImageUrl";
 
 const PostInfo = ({ post }) => {
 
@@ -148,11 +147,7 @@ const PostInfo = ({ post }) => {
             <div className="flex items-center gap-3 p-5 border-b shrink-0">
 
                 <img
-                    src={
-                            post.author.profilePic
-                                ? BASE_URL + post.author.profilePic
-                                : BASE_URL + "/uploads/profiles/default-avatar.png"
-                        }
+                    src={getImageUrl(post.author.profilePic)}
                     className="w-12 h-12 rounded-full object-cover"
                 />
 
@@ -202,7 +197,7 @@ const PostInfo = ({ post }) => {
                         >
 
                             <img
-                                src={BASE_URL + comment.user.profilePic}
+                                src={getImageUrl(comment.user.profilePic)}
                                 className="w-9 h-9 rounded-full object-cover"
                                 alt=""
                             />

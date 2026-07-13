@@ -8,7 +8,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import EditProfileModal from "./EditProfileModal";
 import { toggleFollow } from "../../services/userService";
-import { BASE_URL } from "../../config/config";
+import { getImageUrl } from "../../utils/getImageUrl";
+
 
 const ProfileHeader = ({ user, setUser }) => {
 
@@ -56,11 +57,7 @@ const ProfileHeader = ({ user, setUser }) => {
             <div className="relative">
 
                 <img
-                    src={
-                        user.coverPic
-                            ? BASE_URL + user.coverPic
-                            : BASE_URL + "/uploads/covers/default-cover.jpg"
-                    }
+                    src={getImageUrl(user.coverPic, "/uploads/covers/default-cover.jpg")}
                     alt=""
                     className="w-full h-72 object-cover"
                 />
@@ -70,11 +67,7 @@ const ProfileHeader = ({ user, setUser }) => {
                 <div className="absolute -bottom-16 left-10">
 
                     <img
-                        src={
-                            user.profilePic
-                                ? BASE_URL + user.profilePic
-                                : BASE_URL + "/uploads/profiles/default-avatar.png"
-                        }
+                        src={getImageUrl(user.profilePic)}
                         alt=""
                         className="w-36 h-36 rounded-full border-[6px] border-white dark:border-gray-800 object-cover shadow-lg"
                     />

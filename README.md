@@ -133,28 +133,6 @@ JWT_SECRET=YourSecretKey
 
 ---
 
-## 📷 Screenshots
-
-### User Panel
-
-- Home Feed
-- Profile Page
-- Search Users
-- Notifications
-- Saved Posts
-- Create Post
-- Post Details
-
-### Admin Panel
-
-- Dashboard
-- Users Management
-- Posts Management
-
-> *(Add screenshots after deployment for a better presentation.)*
-
----
-
 ## 🔐 Authentication
 
 - JWT Authentication

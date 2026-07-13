@@ -7,7 +7,8 @@ import {
     deleteComment,
 } from "../../services/postService";
 
-import { BASE_URL } from "../../config/config";
+import { getImageUrl } from "../../utils/getImageUrl";
+
 const currentUser = JSON.parse(
     localStorage.getItem("user")
 );
@@ -95,7 +96,7 @@ const CommentModal = ({ post, close, setCommentCount }) => {
                 <div className="w-[55%] bg-black flex items-center justify-center">
 
                     <img
-                        src={BASE_URL + post.images[0]}
+                        src={getImageUrl(post.images[0])}
                         className="h-full w-full object-cover rounded-l-3xl"
                     />
 
@@ -112,7 +113,7 @@ const CommentModal = ({ post, close, setCommentCount }) => {
                         <div className="flex items-center gap-3">
 
                             <img
-                                src={BASE_URL + post.author.profilePic}
+                                src={getImageUrl(post.author.profilePic)}
                                 className="w-10 h-10 rounded-full object-cover border"
                             />
 
@@ -197,7 +198,7 @@ const CommentModal = ({ post, close, setCommentCount }) => {
                                         <div className="flex gap-3 items-start" key={comment._id}>
 
                                             <img
-                                                src={BASE_URL + comment.user.profilePic}
+                                                src={getImageUrl(comment.user.profilePic)}
                                                 className="w-9 h-9 rounded-full object-cover"
                                             />
 

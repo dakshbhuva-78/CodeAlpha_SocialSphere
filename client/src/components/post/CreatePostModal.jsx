@@ -15,7 +15,7 @@ import { toast } from "react-hot-toast";
 
 import { AuthContext } from "../../context/AuthContext";
 
-import { BASE_URL } from "../../config/config";
+import { getImageUrl } from "../../utils/getImageUrl";
 
 
 const CreatePostModal = ({ close }) => {
@@ -393,11 +393,7 @@ const CreatePostModal = ({ close }) => {
                         <div className="flex items-center gap-4 px-6 py-5 border-b border-gray-200 dark:border-gray-800">
 
                             <img
-                                src={
-                                    currentUser.profilePic
-                                        ? BASE_URL + currentUser.profilePic
-                                        : BASE_URL + "/uploads/profiles/default-avatar.png"
-                                }
+                                src={getImageUrl(currentUser.profilePic)}
                                 alt=""
                                 className="w-12 h-12 rounded-full object-cover ring-2 ring-blue-500"
                             />

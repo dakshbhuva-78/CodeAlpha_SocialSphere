@@ -4,7 +4,7 @@ import { Trash2 } from "lucide-react";
 import { deleteUser } from "../../services/adminService";
 import DeleteUserModal from "./DeleteUserModal";
 
-import { BASE_URL } from "../../config/config";
+import { getImageUrl } from "../../utils/getImageUrl";
 
 const UserTable = ({ users, setUsers }) => {
 
@@ -82,11 +82,7 @@ const UserTable = ({ users, setUsers }) => {
                                         <div className="flex items-center gap-3">
 
                                             <img
-                                                src={
-                                                    user.profilePic
-                                                        ? BASE_URL + user.profilePic
-                                                        : "https://ui-avatars.com/api/?name=" + user.fullName
-                                                }
+                                                src={getImageUrl(user.profilePic)}
                                                 className="w-12 h-12 rounded-full object-cover"
                                                 alt=""
                                             />
