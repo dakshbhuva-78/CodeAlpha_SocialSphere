@@ -3,9 +3,13 @@ import { useRef, useState } from "react";
 import { updateProfile, uploadProfilePicture, uploadCoverPicture } from "../../services/userService";
 
 import { getImageUrl } from "../../utils/getImageUrl";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 
 const EditProfileModal = ({ user, close, setUser }) => {
+
+    const { setUser: setAuthUser } = useContext(AuthContext);
 
     const [fullName, setFullName] = useState(user.fullName);
     const [username, setUsername] = useState(user.username);
@@ -47,6 +51,11 @@ const EditProfileModal = ({ user, close, setUser }) => {
             const res = await uploadProfilePicture(formData);
 
             setUser((prev) => ({
+                ...prev,
+                profilePic: res.data.user.profilePic,
+            }));
+
+            setAuthUser((prev) => ({
                 ...prev,
                 profilePic: res.data.user.profilePic,
             }));
@@ -99,6 +108,11 @@ const EditProfileModal = ({ user, close, setUser }) => {
                 coverPic: res.data.user.coverPic,
             }));
 
+            setAuthUser((prev) => ({
+                ...prev,
+                profilePic: res.data.user.profilePic,
+            }));
+
             const currentUser = JSON.parse(
                 localStorage.getItem("user")
             );
@@ -140,6 +154,8 @@ const EditProfileModal = ({ user, close, setUser }) => {
             // Update profile instantly
 
             setUser(res.data.user);
+
+            setAuthUser(res.data.user);
 
             // Update localStorage
 

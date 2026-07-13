@@ -2,8 +2,7 @@ import { X, Search } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { BASE_URL } from "../../config/config";
-
+import { getImageUrl } from "../../utils/getImageUrl"
 const FollowModal = ({
     title,
     users,
@@ -107,11 +106,7 @@ const FollowModal = ({
                                 <div className="flex items-center gap-4">
 
                                     <img
-                                        src={
-                                            user.profilePic
-                                            ? BASE_URL + user.profilePic
-                                            : BASE_URL + "/uploads/profiles/default-avatar.png"
-                                        }
+                                        src={getImageUrl(user.profilePic)}
                                         className="w-12 h-12 rounded-full object-cover"
                                         alt=""
                                     />
