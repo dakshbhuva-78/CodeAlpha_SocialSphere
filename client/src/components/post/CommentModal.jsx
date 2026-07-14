@@ -9,11 +9,14 @@ import {
 
 import { getImageUrl } from "../../utils/getImageUrl";
 
-const currentUser = JSON.parse(
-    localStorage.getItem("user")
-);
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const CommentModal = ({ post, close, setCommentCount }) => {
+
+    const { user: currentUser } = useContext(AuthContext);
+
+    if (!currentUser) return null;
 
     const [comments, setComments] = useState([]);
     const [text, setText] = useState("");
@@ -96,7 +99,7 @@ const CommentModal = ({ post, close, setCommentCount }) => {
                 <div className="w-[55%] bg-black flex items-center justify-center">
 
                     <img
-                        src={getImageUrl(post.images[0])}
+                        src={getImageUrl(post.images?.[0])}
                         className="h-full w-full object-cover rounded-l-3xl"
                     />
 
@@ -113,18 +116,18 @@ const CommentModal = ({ post, close, setCommentCount }) => {
                         <div className="flex items-center gap-3">
 
                             <img
-                                src={getImageUrl(post.author.profilePic)}
+                                src={getImageUrl(post.author?.profilePic)}
                                 className="w-10 h-10 rounded-full object-cover border"
                             />
 
                             <div>
 
                                 <h3 className="font-semibold">
-                                    {post.author.fullName}
+                                    {post.author?.fullName}
                                 </h3>
 
                                 <p className="text-xs text-gray-500">
-                                    @{post.author.username}
+                                    @{post.author?.username}
                                 </p>
 
                             </div>
@@ -198,7 +201,7 @@ const CommentModal = ({ post, close, setCommentCount }) => {
                                         <div className="flex gap-3 items-start" key={comment._id}>
 
                                             <img
-                                                src={getImageUrl(comment.user.profilePic)}
+                                                src={getImageUrl(comment.user?.profilePic)}
                                                 className="w-9 h-9 rounded-full object-cover"
                                             />
 
@@ -208,7 +211,7 @@ const CommentModal = ({ post, close, setCommentCount }) => {
 
                                                     <h4 className="font-semibold text-sm">
 
-                                                        {comment.user.fullName}
+                                                        {comment.user?.fullName}
 
                                                     </h4>
 
@@ -219,8 +222,8 @@ const CommentModal = ({ post, close, setCommentCount }) => {
                                                     </p>
                                                     {
                                                         (
-                                                            comment.user._id === currentUser._id ||
-                                                            post.author._id === currentUser._id
+                                                            comment.user?._id === currentUser?._id ||
+                                                            post.author?._id === currentUser?._id
                                                         ) && (
 
                                                             <button
