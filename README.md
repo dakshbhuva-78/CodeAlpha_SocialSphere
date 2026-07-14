@@ -188,6 +188,14 @@ JWT_SECRET=YourSecretKey
 
 ---
 
+## Live Demo
+- Frontend: https://code-alpha-social-sphere-28djw4ze6-dakshbhuva-78s-projects.vercel.app/login
+
+- Backend: https://socialsphere-api-uafe.onrender.com/
+
+
+---
+
 ## 📄 License
 
 This project is developed for educational purposes and internship submission.
