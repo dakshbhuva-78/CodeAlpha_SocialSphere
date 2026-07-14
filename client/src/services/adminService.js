@@ -1,4 +1,5 @@
 import axios from "axios";
+import API from "./api";
 
 const API = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
@@ -18,22 +19,22 @@ API.interceptors.request.use((config) => {
 
 // Admin Login
 export const loginAdmin = (data) =>
-    API.post("/login", data);
+    API.post("/admin/login", data);
 
 // Dashboard
 export const getDashboard = () =>
-    API.get("/dashboard");
+    API.get("/admin/dashboard");
 
 // Users
 export const getUsers = () =>
-    API.get("/users");
+    API.get("/admin/users");
 
 export const deleteUser = (id) =>
-    API.delete(`/users/${id}`);
+    API.delete(`/admin/users/${id}`);
 
 // Posts
 export const getPosts = () =>
-    API.get("/posts");
+    API.get("/admin/posts");
 
 export const deletePost = (id) =>
-    API.delete(`/posts/${id}`);
+    API.delete(`/admin/posts/${id}`);
