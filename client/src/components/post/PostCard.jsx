@@ -253,17 +253,22 @@ const PostCard = ({ post, setPosts = () => { } }) => {
                 />
 
                 {currentImage > 0 && (
-                    <button onClick={prevImage}>
+                    <button
+                        onClick={prevImage}
+                        className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 text-white rounded-full p-2"
+                    >
                         <ChevronLeft size={22} />
                     </button>
                 )}
 
                 {currentImage < post.images.length - 1 && (
-                    <button onClick={nextImage}>
+                    <button
+                        onClick={nextImage}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 text-white rounded-full p-2"
+                    >
                         <ChevronRight size={22} />
                     </button>
                 )}
-
             </div>
             <div className="flex justify-center gap-2 py-3">
 
